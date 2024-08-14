@@ -1,0 +1,62 @@
+Q130 survey 1: 
+I never use this feature
+I use this feature sometimes
+I use this feature as often as possible
+I've never driven a car with this feature
+
+Q134, Q135, Q7, Q136, Q137, Q138:
+Strongly disagree
+Disagree
+Somewhat disagree
+Neither agree nor disagree
+Somewhat agree
+Agree
+Strongly agree
+
+Q130 survey 2: 
+I would never use this feature
+I would use this feature sometimes
+I would use this feature as often as possible
+
+Q110: 
+None
+Slight
+Moderate
+Severe
+
+Q14, Q15, Q16, Q17, Q18, Q20, Q21
+Demographics
+
+Q139:
+0-100
+
+Q140:
+0-100
+
+Q22:
+Less than 5,000 miles
+5,000-10,000 miles
+10,000-15,000 miles
+15,000-20,000 miles.
+More than 20,000 miles
+
+Q24:
+Daily
+A few times a week
+A few times a month
+A few times a year
+Never
+
+Q25:
+Daily
+A few times a week
+A few times a month
+A few times a year
+Never
+
+Q26:
+Very defensive
+Defensive
+Neutral
+Aggressive
+Very Aggressive
