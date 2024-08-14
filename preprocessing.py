@@ -1,11 +1,12 @@
 # python -3.11
 import pandas as pd
 import numpy as np
-from typing import Dict, List, Tuple
+from typing import Dict, List, Tuple, Optional
+from choice_map import choices_map 
 
-def parse_and_preprocess_surveys(survey1_path: str, survey2_path: str, choices_map: Dict[str, Dict[str, int]]) -> Tuple[Dict[str, Dict[str, Dict[str, str]]], pd.DataFrame]:
-    df1 = pd.read_csv(survey1_path)
-    df2 = pd.read_csv(survey2_path)
+def parse_and_preprocess_surveys(survey1_path: str, survey2_path: str, choices_map: Dict[str, Dict[str, int]], output_path: Optional[str] = None) -> Tuple[Dict[str, Dict[str, Dict[str, str]]], pd.DataFrame]:
+    df1 = pd.read_csv(survey1_path, skiprows=[1])
+    df2 = pd.read_csv(survey2_path, skiprows=[1])
 
     raw_responses = {}
 
@@ -21,13 +22,13 @@ def parse_and_preprocess_surveys(survey1_path: str, survey2_path: str, choices_m
 
     encoded_data = []
 
-    # encode responses
     for participant_id, surveys in raw_responses.items():
         participant_encoded = {'participant_id': participant_id}
         for survey_key, responses in surveys.items():
             for question, answer in responses.items():
-                if question in choices_map:
-                    encoded_value = choices_map[question].get(answer, np.nan)
+                question_base = question.split('_')[0]
+                if question_base in choices_map:
+                    encoded_value = choices_map[question_base].get(answer, np.nan)
                     participant_encoded[f"{survey_key}_{question}"] = encoded_value
                 else:
                     participant_encoded[f"{survey_key}_{question}"] = answer
@@ -35,20 +36,18 @@ def parse_and_preprocess_surveys(survey1_path: str, survey2_path: str, choices_m
 
     encoded_df = pd.DataFrame(encoded_data)
 
+    if output_path:
+            encoded_df.to_csv(output_path, index=False)
+
     return raw_responses, encoded_df
-
-choices_map = {
-
-}
 
 
 survey1_path = 'Data/Questionnaire 1.csv'
 survey2_path = 'Data/Questionnaire 2.csv'
-raw_responses, encoded_df = parse_and_preprocess_surveys(survey1_path, survey2_path, choices_map)
+output_path = 'Data/encoded_survey_data.csv' 
+raw_responses, encoded_df = parse_and_preprocess_surveys(survey1_path, survey2_path, choices_map, output_path)
 
 print(encoded_df.head())
 
-
+pd.set_option('display.max_columns', None)
 print(encoded_df)
-'''
-'''
