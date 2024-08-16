@@ -5,7 +5,7 @@ choices_map = {
         'I never use this feature': 0,
         'I use this feature sometimes': 1,
         'I use this feature as often as possible': 2,
-        "I've never driven a car with this feature": np.nan,
+        "I've never driven a car with this feature": 0,
         'I would never use this feature': 0,
         'I would use this feature sometimes': 1,
         'I would use this feature as often as possible': 2

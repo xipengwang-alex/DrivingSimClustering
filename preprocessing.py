@@ -4,13 +4,15 @@ import numpy as np
 from typing import Dict, List, Tuple, Optional
 from choice_map import choices_map 
 
-def parse_and_preprocess_surveys(survey1_path: str, survey2_path: Optional[str] = None, choices_map: Dict[str, Dict[str, int]] = choices_map, output_path: Optional[str] = None) -> Tuple[Dict[str, Dict[str, Dict[str, str]]], pd.DataFrame]:
-    df1 = pd.read_csv(survey1_path, skiprows=[1])
+def parse_and_preprocess_surveys(survey1_path: Optional[str] = None, survey2_path: Optional[str] = None, choices_map: Dict[str, Dict[str, int]] = choices_map, output_path: Optional[str] = None) -> Tuple[Dict[str, Dict[str, Dict[str, str]]], pd.DataFrame]:
+    df1 = pd.read_csv(survey1_path, skiprows=[1]) if survey1_path else None
     df2 = pd.read_csv(survey2_path, skiprows=[1]) if survey2_path else None
 
     raw_responses = {}
+    surveys = []
 
-    surveys = [(df1, 'survey1')]
+    if df1 is not None:
+        surveys.append((df1, 'survey1'))
     if df2 is not None:
         surveys.append((df2, 'survey2'))
 
@@ -48,10 +50,10 @@ def parse_and_preprocess_surveys(survey1_path: str, survey2_path: Optional[str] 
 
 survey1_path = 'Data/Questionnaire 1.csv'
 survey2_path = 'Data/Questionnaire 2.csv'
-output_path = 'Data/encoded_survey_data.csv' 
+output_path = 'Data/encoded_survey2_data.csv' 
 #raw_responses, encoded_df = parse_and_preprocess_surveys(survey1_path, survey2_path, choices_map, output_path)
 
-raw_responses, encoded_df = parse_and_preprocess_surveys(survey1_path, choices_map = choices_map, output_path = output_path)
+raw_responses, encoded_df = parse_and_preprocess_surveys(survey2_path=survey2_path, choices_map = choices_map, output_path = output_path)
 
 print(encoded_df.head())
 
